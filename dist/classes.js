@@ -2,7 +2,7 @@
 class ClassUser {
     constructor(id, name, email) {
         this.sayMyName = () => {
-            console.log(this.name);
+            return this.name;
         };
         this.id = id;
         this.name = name;
@@ -18,4 +18,5 @@ class Employee extends ClassUser {
     }
 }
 const employee = new Employee(1, 'Flamarion', 'mesmo245@gmail.com');
-console.log(employee, employee.whatMyEmail());
+const classUser = new ClassUser(3, 'Gazua', 'gazua@gmail.com');
+console.log(employee);

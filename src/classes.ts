@@ -14,8 +14,8 @@ class ClassUser implements IClassUser{
         this.email = email
     }
 
-    sayMyName = ():void=>{
-        console.log(this.name)
+    sayMyName = ():string=>{
+        return this.name
     }
 }
 
@@ -31,5 +31,6 @@ class Employee extends ClassUser{
 }
 
 const employee = new Employee(1, 'Flamarion', 'mesmo245@gmail.com')
+const classUser = new ClassUser(3, 'Gazua', 'gazua@gmail.com')
 
-console.log(employee, employee.whatMyEmail())
+console.log(employee)
