@@ -9,6 +9,14 @@ class ClassUser {
         this.email = email;
     }
 }
+//Mesma coisa que a de cima com menos código
+class OtherClassUser {
+    constructor(id, name, email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+}
 class Employee extends ClassUser {
     constructor(id, name, email) {
         super(id, name, email);
@@ -19,4 +27,4 @@ class Employee extends ClassUser {
 }
 const employee = new Employee(1, 'Flamarion', 'mesmo245@gmail.com');
 const classUser = new ClassUser(3, 'Gazua', 'gazua@gmail.com');
-console.log(employee);
+console.log(employee.sayMyName());
