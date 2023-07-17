@@ -12,7 +12,7 @@ const uploadContracts = async(req:Request, res:Response)=>{
         const user = await auth(req)
         const uploadedFile = req.file
         const { company,  signedAt,  expiresAt,  contractName} = req.body
-    console.log(uploadedFile)    
+        
         if(!company || !signedAt || !expiresAt || !contractName){
             statusCode = 401
             throw new Error('Preencha os campos')

@@ -2,7 +2,7 @@ POST http://localhost:3003/login
 Content-Type: application/json
 
 {
-    "email": "eu@email.com",
+    "email": "visitante@email.com",
     "password": "123456"
 }
 
@@ -11,13 +11,24 @@ POST http://localhost:3003/signup
 Content-Type: application/json
 
 {
-    "username": "Flamarion",
-    "email": "eu@email.com",
+    "username": "Visitante",
+    "email": "visitante@email.com",
     "password": "123456",
     "confirmPass": "123456",
-    "role": "ADM"
+    "role": "COISA"
 }
 
 ###
 GET http://localhost:3003/contracts
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNWYxYzE5ZTMtZTQzMi00NGZlLThhNzUtZTc5ODAzZDBiZGI2IiwiaWF0IjoxNjg5NTY3Nzg4LCJleHAiOjE2ODk1NzEzODh9.pT-pDnOAdd-rp9ItB9UIdVYlZhPIg-14btfT3wb8vGE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMDM3MmU2NTktMmMxNi00MWIwLWE0MzQtYmFjNzYwODllZTQyIiwiaWF0IjoxNjg5NjEyNDg5LCJleHAiOjE2ODk2MTYwODl9.Dk-8Sgop1pnq8m9F2hR7Rs_fxD8aBgEPd4jM41dTPGw
+
+###
+POST http://localhost:3003/contractFile
+Content-Type: multipart/form-data
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMDM3MmU2NTktMmMxNi00MWIwLWE0MzQtYmFjNzYwODllZTQyIiwiaWF0IjoxNjg5NjEzNjc5LCJleHAiOjE2ODk2MTcyNzl9.KbWLU2NhKvfmrIa6JhWStcbzC3tdpKxThlyymHGFUTg
+
+{
+    "company": "Vai",
+    "signedAt": "2023-11-01",
+    "expiresAt": "2023-12-01"
+}
