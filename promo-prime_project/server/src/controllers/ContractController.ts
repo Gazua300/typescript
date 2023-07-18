@@ -3,6 +3,7 @@ import { contract_validateExistingCP, contract_validateFields } from "../busines
 import { editContractsValidateEdition, editContractsValidateFields } from "../business/editContractValidation"
 const con = require('../connections/connection')
 const { auth } = require('../services/auth')
+const Authentication = require('../services/Authentication')
 
 
 
@@ -29,8 +30,7 @@ class ContractController{
             const user = await auth(req)
             const uploadedFile = req.file
             const { company,  signedAt,  expiresAt,  contractName} = req.body 
-            console.log('Corpo', req.body)
-            console.log('Arquivo', req.file)          
+                      
             contract_validateFields(req)
             await contract_validateExistingCP(company)
     
@@ -56,7 +56,7 @@ class ContractController{
             res.status(200).send('Arquivo enviado com sucesso')
         }catch(e:any){
             const statusCode = e.statusCocde || 400
-            const message = e.error.message
+            const message = e.error === undefined ? e.message : e.error.message 
             res.status(statusCode).send(message || e.sqlMessage)
         }
     }

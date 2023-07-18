@@ -1,4 +1,5 @@
 import { Request } from "express"
+const con = require('../connections/connection')
 
 export const contract_validateFields = (req:Request)=>{
     const uploadedFile = req.file

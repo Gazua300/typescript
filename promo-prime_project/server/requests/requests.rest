@@ -24,13 +24,14 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMDM3MmU2NTkt
 
 ###
 POST http://localhost:3003/contractFile
-Content-Type: multipart/form-data
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMDM3MmU2NTktMmMxNi00MWIwLWE0MzQtYmFjNzYwODllZTQyIiwiaWF0IjoxNjg5NjEzNjc5LCJleHAiOjE2ODk2MTcyNzl9.KbWLU2NhKvfmrIa6JhWStcbzC3tdpKxThlyymHGFUTg
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiZGQ3ZTdmM2ItYTZmZi00ZWQ1LWIzZmMtNWEzOWQ0M2RjZjY1IiwiaWF0IjoxNjg5NjUzOTA4LCJleHAiOjE2ODk2NTc1MDh9.dJ06yKyJr4MRhOdVGpiV_CUnYN55oHp4yrLUcbIMofw
 
 {
     "company": "Vai",
     "signedAt": "2023-11-01",
-    "expiresAt": "2023-12-01"
+    "expiresAt": "2023-12-01",
+    "contractName": "cole vey"
 }
 
 ###

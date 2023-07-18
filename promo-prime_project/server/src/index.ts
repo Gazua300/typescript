@@ -1,9 +1,6 @@
 import { Application } from "express"
 const express = require('express')
 const cors = require('cors')
-const multer = require('multer')
-const { storage } = require('./multerConfig')
-const upload = multer({ storage: storage })
 const routes = require('./routes')
 
 
