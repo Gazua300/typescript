@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { contract_validateExistingCP, contract_validateFields } from "../business/contractValidation"
+import { editContractsValidateEdition, editContractsValidateFields } from "../business/editContractValidation"
 const con = require('../connections/connection')
 const { auth } = require('../services/auth')
 
@@ -63,41 +64,33 @@ class ContractController{
 
     public async editContracts(req:Request, res:Response):Promise<void>{
         try{
+
+            interface UploadedFile {
+                fieldname: string;
+                originalname: string;
+                encoding: string;
+                mimetype: string;
+                size: number;
+                buffer: Buffer;
+            }
         
             const user = await auth(req)    
-            const uploadedFile = req.file    
-            const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body
-    
+            const uploadedFile:UploadedFile | any = req.file    
+            const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body   
             
+            editContractsValidateFields(req)           
             
+            var updateFields:string[] = []
             
-            const [contract] = await con('promo_prime_contract').where({
-                id: req.params.id
-            })
-            
-            var updateFields = []
-    
-           
-            if(company !== contract.company){
-                updateFields.push(`Alteração no nome da empresa de ${contract.company} para ${company}`)
-            }
-    
-            if(convertDate(signedAt) !== convertContractDate(contract.signedAt)){
-                updateFields.push(`Alteração na data da assinatura no contrato da empresa ${company} de ${convertContractDate(contract.signedAt)} para ${convertDate(signedAt)}`)
-            }
-    
-            if(convertDate(expiresAt) !== convertContractDate(contract.expiresAt)){
-                updateFields.push(`Alteração na data da expiração no contrato da empresa ${company} de ${convertContractDate(contract.expiresAt)} para ${convertDate(expiresAt)}`)
-            }
-    
-            if(uploadedFile){
-                if(contractUpdates === ''){
-                    statusCode = 403
-                    throw new Error('Especifique as mudanças do contrato')
-                }else{
-                    updateFields.push(contractUpdates)
-                }
-            }        
+            editContractsValidateEdition(
+                req,
+                company,
+                signedAt,
+                expiresAt,
+                uploadedFile,
+                contractUpdates,
+                updateFields
+            )
     
     
             await con('promo_prime_contract').update({
@@ -124,8 +117,10 @@ class ContractController{
             }
     
             res.status(200).send(messageToSend)
-        }catch(e){
-            res.status(statusCode).send(e.message || e.sqlMessage)
+        }catch(e:any){
+            const statusCode = e.statusCocde
+            const message = e.error.message
+            res.status(statusCode).send(message || e.sqlMessage)
         }
     }
         

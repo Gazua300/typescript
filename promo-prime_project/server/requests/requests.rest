@@ -32,3 +32,9 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMDM3MmU2NTkt
     "signedAt": "2023-11-01",
     "expiresAt": "2023-12-01"
 }
+
+###
+PUT http://localhost:3003/contract/
+header name: header value
+
+content
