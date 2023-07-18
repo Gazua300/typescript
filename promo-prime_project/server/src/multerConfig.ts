@@ -1,6 +1,8 @@
 import { StorageEngine, diskStorage } from "multer"
 import { editContract_fileFilter } from "./business/editContractValidation"
+import { contract_fileFilter } from "./business/contractValidation"
 const multer = require("multer")
+
 
 
 
@@ -14,7 +16,7 @@ const storage:StorageEngine = diskStorage({
 })
 
 
-const uploadContract = multer({ storage: storage })
+const uploadContract = multer({ storage: storage, fileFilter: contract_fileFilter })
 const uploadEditContract = multer({ storage: storage, fileFilter: editContract_fileFilter })
 
 module.exports = { uploadContract, uploadEditContract }

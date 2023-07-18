@@ -1,10 +1,11 @@
 import { Request, Response } from "express"
-import { contract_validateExistingCP, contract_validateFields } from "../business/contractValidation"
+import { contract_fileFilter, contract_validateExistingCP, contract_validateFields } from "../business/contractValidation"
 import { editContract_ValidateEdition, editContract_ValidateFields } from "../business/editContractValidation"
 import { UploadedFile } from "../business/editContractValidation"
 const con = require('../connections/connection')
 const { auth } = require('../services/auth')
 const Authentication = require('../services/Authentication')
+
 
 
 
@@ -31,9 +32,10 @@ class ContractController{
             const uploadedFile:UploadedFile | any = req.file 
             const { company,  signedAt,  expiresAt } = req.body 
                          
-            contract_validateFields(req)
-            await contract_validateExistingCP(company)
             
+            contract_validateFields(req)
+            await contract_validateExistingCP(company, expiresAt, signedAt)
+
     
             await con('promo_prime_contract').insert({
                 id: new Authentication().generateId(),
@@ -111,7 +113,7 @@ class ContractController{
         }catch(e:any){
             const statusCode = e.statusCocde || 400
             const message = e.error === undefined ? e.message : e.error.message
-            res.status(statusCode).send(e.message || e.sqlMessage)
+            res.status(statusCode).send(message || e.sqlMessage)
         }
     }
         

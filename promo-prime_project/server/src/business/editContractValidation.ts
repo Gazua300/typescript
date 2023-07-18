@@ -40,6 +40,13 @@ export const editContract_ValidateEdition = async(
         id: req.params.id
     })
 
+    if(!contract){
+        throw{
+            statusCode: 404,
+            error: new Error('Contrato não encontrado')
+        }
+    }
+
     if(company !== contract.company){
         updateFields.push(`Alteração no nome da empresa de ${contract.company} para ${company}`)
     }
@@ -65,7 +72,7 @@ export const editContract_ValidateEdition = async(
 }
 
 
-type FileFilterFunction = (
+export type FileFilterFunction = (
     req:Request,
     file:Express.Multer.File,
     cb:FileFilterCallback

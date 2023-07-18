@@ -5,18 +5,18 @@ import Router from './routes/Router'
 
 
 const GlobalStyle = createGlobalStyle`
-body{
-  background-color: #151626;
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100%;
-  color: whitesmoke;
-}
+  body{
+    background-color: #151626;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100%;
+    color: whitesmoke;
+  }
 
-.icon{
-  cursor: pointer;
-}
+  .icon{
+    cursor: pointer;
+  }
 `
 
 

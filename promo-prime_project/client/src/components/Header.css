@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+}
+
+header{
+    background-color: rgb(25, 23, 23);
+    box-shadow: 2px 2px 4px;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;    
+}
+
+header img{
+    width: 130px;
+
+    @media(max-width: 300px){
+        width: 80px;
+    }
+}
