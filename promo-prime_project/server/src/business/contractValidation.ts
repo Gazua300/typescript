@@ -3,9 +3,9 @@ const con = require('../connections/connection')
 
 export const contract_validateFields = (req:Request)=>{
     const uploadedFile = req.file
-    const { company,  signedAt,  expiresAt,  contractName} = req.body
+    const { company,  signedAt,  expiresAt } = req.body
 
-    if(!company || !signedAt || !expiresAt || !contractName){
+    if(!company || !signedAt || !expiresAt){
         throw{
             statusCode: 401,
             error: new Error('Preencha os campos')

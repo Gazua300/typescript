@@ -29,7 +29,7 @@ class ContractController{
         
             const user = await auth(req)
             const uploadedFile = req.file
-            const { company,  signedAt,  expiresAt,  contractName} = req.body 
+            const { company,  signedAt,  expiresAt } = req.body 
                       
             contract_validateFields(req)
             await contract_validateExistingCP(company)
@@ -40,7 +40,7 @@ class ContractController{
                 company,
                 signedAt,
                 expiresAt,
-                contractName,
+                contractName: uploadedFile?.filename,
                 user_id: user.id
             })
     

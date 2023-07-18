@@ -1,9 +1,7 @@
 import { Router } from "express"
-const multer = require('multer')
-const { storage } = require('./multerConfig')
-const upload = multer({ storage: storage })
 const UserController = require('./controllers/UserController')
 const ContractController = require('./controllers/ContractController')
+const upload = require('./multerConfig')
 
 const routes = Router()
 
