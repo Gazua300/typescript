@@ -1,9 +1,11 @@
 import { Request } from "express"
+import { FileFilterCallback } from "multer"
 const con = require('../connections/connection')
 
+
+
 export const contract_validateFields = (req:Request)=>{
-    const uploadedFile = req.file
-    const { company,  signedAt,  expiresAt } = req.body
+    const { company,  signedAt,  expiresAt, contractName } = req.body
 
     if(!company || !signedAt || !expiresAt){
         throw{
@@ -12,24 +14,35 @@ export const contract_validateFields = (req:Request)=>{
         }
     }
 
-    if(!uploadedFile){
+    if(!contractName){
         throw{
-            statusCode: 403,
-            error: new Error('Primeiro selecione o arquivo')
+            statusCode: 404,
+            error: new Error('Selecione o arquivo do contrato')
         }
     }
 }
 
 
 export const contract_validateExistingCP = async(company:string):Promise<void>=>{
-    const [existedCP] = await con('promo_prime_contract').where({
+
+    const [existingCP] = await con('promo_prime_contract').where({
         company
     })
 
-    if(existedCP){
+    /* const [existingDateSign] = await con('promo_prime_contract').where({
+        signedAt,
+    })
+
+    const [existingDateExpires] = await con('promo_prime_contract').where({
+        expiresAt,
+    }) */
+
+    if(existingCP){
         throw{
             statusCode: 401,
             error: new Error('Empresa já foi cadastrada')
         }
     }
 }
+
+

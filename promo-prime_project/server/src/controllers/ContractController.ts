@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { contract_validateExistingCP, contract_validateFields } from "../business/contractValidation"
-import { editContractsValidateEdition, editContractsValidateFields } from "../business/editContractValidation"
+import { editContract_ValidateEdition, editContract_ValidateFields } from "../business/editContractValidation"
+import { UploadedFile } from "../business/editContractValidation"
 const con = require('../connections/connection')
 const { auth } = require('../services/auth')
 const Authentication = require('../services/Authentication')
@@ -8,7 +9,6 @@ const Authentication = require('../services/Authentication')
 
 
 class ContractController{
-    
     public async getContracts(req:Request, res:Response):Promise<void>{
         try{
         
@@ -28,12 +28,12 @@ class ContractController{
         try{
         
             const user = await auth(req)
-            const uploadedFile = req.file
+            const uploadedFile:UploadedFile | any = req.file 
             const { company,  signedAt,  expiresAt } = req.body 
-                      
+                         
             contract_validateFields(req)
             await contract_validateExistingCP(company)
-    
+            
     
             await con('promo_prime_contract').insert({
                 id: new Authentication().generateId(),
@@ -60,29 +60,20 @@ class ContractController{
             res.status(statusCode).send(message || e.sqlMessage)
         }
     }
-
+    
 
     public async editContracts(req:Request, res:Response):Promise<void>{
         try{
-
-            interface UploadedFile {
-                fieldname: string;
-                originalname: string;
-                encoding: string;
-                mimetype: string;
-                size: number;
-                buffer: Buffer;
-            }
         
             const user = await auth(req)    
             const uploadedFile:UploadedFile | any = req.file    
-            const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body   
+            const { company, signedAt, expiresAt, contractUpdates } = req.body   
             
-            editContractsValidateFields(req)           
+            editContract_ValidateFields(req)           
             
             var updateFields:string[] = []
             
-            editContractsValidateEdition(
+            await editContract_ValidateEdition(
                 req,
                 company,
                 signedAt,
@@ -97,7 +88,7 @@ class ContractController{
                 company,
                 signedAt,
                 expiresAt,
-                contractName
+                contractName: uploadedFile?.filename
             }).where({
                 id: req.params.id
             })
@@ -118,9 +109,9 @@ class ContractController{
     
             res.status(200).send(messageToSend)
         }catch(e:any){
-            const statusCode = e.statusCocde
-            const message = e.error.message
-            res.status(statusCode).send(message || e.sqlMessage)
+            const statusCode = e.statusCocde || 400
+            const message = e.error === undefined ? e.message : e.error.message
+            res.status(statusCode).send(e.message || e.sqlMessage)
         }
     }
         

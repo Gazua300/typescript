@@ -1,9 +1,11 @@
 import { Request } from "express"
 import { convertContractDate, convertDate } from "../services/dateConverstions"
+import { FileFilterCallback } from "multer"
+const con = require('../connections/connection')
 
-export const editContractsValidateFields = (req:Request):void=>{
-    const uploadedFile = req.file    
-    const { company, signedAt, expiresAt, contractName, contractUpdates } = req.body
+
+export const editContract_ValidateFields = (req:Request):void=>{    
+    const { company, signedAt, expiresAt } = req.body
     
     if(!company || !signedAt || !expiresAt){
         throw{
@@ -14,7 +16,7 @@ export const editContractsValidateFields = (req:Request):void=>{
 }
 
 
-interface UploadedFile {
+export interface UploadedFile {
     fieldname: string;
     originalname: string;
     encoding: string;
@@ -23,7 +25,7 @@ interface UploadedFile {
     buffer: Buffer;
 }
 
-export const editContractsValidateEdition = async(
+export const editContract_ValidateEdition = async(
     req:Request,
     company:string,
     signedAt:string,
@@ -60,4 +62,15 @@ export const editContractsValidateEdition = async(
             updateFields.push(contractUpdates)
         }
     } 
+}
+
+
+type FileFilterFunction = (
+    req:Request,
+    file:Express.Multer.File,
+    cb:FileFilterCallback
+) => void
+
+export const editContract_fileFilter:FileFilterFunction = (req, file, cb):void=>{
+    console.log('Da edição de contrato',file)
 }
