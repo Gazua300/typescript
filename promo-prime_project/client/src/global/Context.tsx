@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react"
+import { createContext, useState } from "react"
 
 
 const Context = createContext<any>(null)
@@ -39,3 +39,5 @@ export const GlobalState:React.FC<GlobalStateProps> = (props)=>{
         </Context.Provider>
     )
 }
+
+export default Context

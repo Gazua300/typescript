@@ -2,12 +2,12 @@ import { BrowserRouter } from "react-router-dom"
 import { createGlobalStyle } from "styled-components"
 import { GlobalState } from "./global/Context"
 import Router from "./routes/Router"
-//import Image from './img/wallpaper.png'
+import Image from './img/wallpaper.png'
 
 
 const GlobalStyle = createGlobalStyle`
   body{
-    background-color: black;
+    background-image: url(${Image});
     background-size: cover;
     color: white;
   }
